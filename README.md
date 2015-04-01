@@ -1,9 +1,5 @@
-<<<<<<< HEAD
 # red_black_tree
-An implementation of the red-black tree in Java.
-=======
-# binary_search_tree
-An implementation of the binary search tree in Java. Keep in mind that I'm learning Java and Trees, so this may not be the best code around hehe.
+An implementation of the red-black tree in Java. This code was forked from my repo "binary_search_tree".
 
 **Some info:**
 
@@ -34,4 +30,3 @@ An implementation of the binary search tree in Java. Keep in mind that I'm learn
 
 * [Introduction to Algorithms, by Cormen et al](http://www.mitpress.mit.edu/books/introduction-algorithms)
 * [Open Data Structures](http://www.opendatastructures.org)
->>>>>>> upstream/master
