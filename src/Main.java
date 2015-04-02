@@ -53,7 +53,7 @@ class Main {
          while (true) {
             System.out.println();
             t.remove(t.root);
-            if (t.root != null) t.inorderWalk();
+            if (t.root != Tree.nil) t.inorderWalk();
             else break;
         }
 

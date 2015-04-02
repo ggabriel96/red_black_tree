@@ -17,9 +17,10 @@
 
 class Tree {
     Node root;
+    public static Node nil = new Node(0, false);
 
     public Tree(int k) {
-        this.root = new Node(k);
+        this.root = new Node(k, false);
     }
 
     public Node find(int k) {
@@ -29,11 +30,11 @@ class Tree {
     public void add(int k) {
         Node n = this.root.find(k);
         if (k < n.k) {
-            n.l = new Node(k);
+            n.l = new Node(k, true);
             n.l.p = n;
         }
         else if (k > n.k) {
-            n.r = new Node(k);
+            n.r = new Node(k, true);
             n.r.p = n;
         }
     }
@@ -42,8 +43,8 @@ class Tree {
         /* This first 'if' treats the case when u has
          * no children *or* has a right child, but not left.
          */
-        if (u.l == null) this.transplant(u, u.r);
-        else if (u.r == null) this.transplant(u, u.l);
+        if (u.l == Tree.nil) this.transplant(u, u.r);
+        else if (u.r == Tree.nil) this.transplant(u, u.l);
         else {
             Node v = u.successor();
             /* If u has two children, gotta transplant it
@@ -69,21 +70,21 @@ class Tree {
              * (u.l and u.r are intact. That doesn't matter).
              * If v is a child of u (the right one), then
              * only the last step is performed.
-             * Important: v.l is null, since v is u's successor.
+             * Important: v.l is Tree.nil, since v is u's successor.
              */
         }
     }
 
     /* Adjusts v's references to match u's:
-     * u.p.x = v and v.p = u.p (if v is not null).
+     * u.p.x = v and v.p = u.p (if v is not Tree.nil).
      * Doesn't touch u.p, u.l and u.r. u is
      * still there as though nothing happened.
      */
     private void transplant(Node u, Node v) {
-        if (u.p == null) this.root = v;
+        if (u.p == Tree.nil) this.root = v;
         else if (u == u.p.l) u.p.l = v;
         else u.p.r = v;
-        if (v != null) v.p = u.p;
+        if (v != Tree.nil) v.p = u.p;
     }
 
     public Node min() {
