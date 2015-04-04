@@ -50,7 +50,7 @@ class Main {
         System.out.println("t.root.predecessor: " + t.root.predecessor().k);
         System.out.println("t.root.successor: " + t.root.successor().k);
 
-         while (true) {
+        while (true) {
             System.out.println();
             t.remove(t.root);
             if (t.root != Tree.nil) t.inorderWalk();
@@ -58,6 +58,8 @@ class Main {
         }
 
         System.out.println(t.root);
+        System.out.println("A raiz agora é Tree.nil:");
+        System.out.println("t.root: " +  t.root + " == " + Tree.nil + ": Tree.nil");
         System.out.println(t);
 
         //System.out.println("_____________________________\n");
