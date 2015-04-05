@@ -144,7 +144,7 @@ class Tree {
             y.red = z.red;
         }
 
-        if (!yOriginalRed) this.delFix(x);
+        if (!yOriginalRed) this.remFix(x);
     }
 
     /* Adjusts v's references to match u's:
@@ -159,7 +159,7 @@ class Tree {
         v.p = u.p;
     }
 
-    private void delFix(Node x) {
+    private void remFix(Node x) {
         Node w;
 
         while (x != this.root && !x.red) {
