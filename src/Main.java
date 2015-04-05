@@ -22,23 +22,31 @@ class Main {
         t.add(0);
         t.add(2);
         t.add(3);
-        t.add(5); // it doesn't even try to add it again \o/
+        t.add(5); // doesn't add duplicates
         t.add(6);
         t.add(7);
         t.add(10);
-        System.out.println("Original tree:");
+        t.add(4);
+        t.add(25);
+        t.add(23);
+        t.add(11);
+        t.add(15);
+        t.add(17);
+        t.add(8);
+        t.add(9);
+        /*System.out.println("Original tree:");
         t.inorderWalk();
-        System.out.println();
+        System.out.println();*/
 
-        System.out.println("t.size: " + t.size() + " node(s)");
+        /*System.out.println("t.size: " + t.size() + " node(s)");
         System.out.println("t.depth: " + t.depth());
         System.out.println("t.height: " + t.height());
         System.out.println("t.min: " + t.min().k);
         System.out.println("t.max: " + t.max().k);
-        System.out.println("t.find(0): " + t.find(0).k);
+        System.out.println("t.find(0): " + t.find(0).k);*/
 
-        System.out.println();
+        //System.out.println("----------");
         t.graph();
-        System.out.println();
+        //System.out.println("----------");
     }
 }

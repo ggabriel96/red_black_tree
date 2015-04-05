@@ -91,19 +91,19 @@ class Node {
         }
 
         if (this.l != Tree.nil) {
-            System.out.println("\t" + this.k + " -> " + this.l.k + " [label = \" l\"];");
+            System.out.println("\t" + this.k + " -> " + this.l.k + " [label = \" L\"];");
             this.l.graph();
         }
         else {
-            System.out.println("\t" + this.k + " -> nil [label = \" l\"];");
+            System.out.println("\t" + this.k + " -> nil [label = \" L\"];");
         }
 
         if (this.r != Tree.nil) {
-            System.out.println("\t" + this.k + " -> " + this.r.k + " [label = \" r\"];");
+            System.out.println("\t" + this.k + " -> " + this.r.k + " [label = \" R\"];");
             this.r.graph();
         }
         else {
-            System.out.println("\t" + this.k + " -> nil [label = \" r\"];");
+            System.out.println("\t" + this.k + " -> nil [label = \" R\"];");
         }
     }
 }

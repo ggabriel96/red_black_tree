@@ -32,14 +32,59 @@ class Tree {
         if (k < n.k) {
             n.l = new Node(k, true);
             n.l.p = n;
+            this.fix(n.l);
         }
         else if (k > n.k) {
             n.r = new Node(k, true);
             n.r.p = n;
+            this.fix(n.r);
         }
     }
 
-    public void rotateLeft(Node x) {
+    private void fix(Node z) {
+        Node y;
+        while (z.p.red) {
+            if (z.p == z.p.p.l) {
+                y = z.p.p.r;
+                if (y.red) {
+                    z.p.red = false; // case 1
+                    y.red = false; // case 1
+                    z.p.p.red = true; // case 1
+                    z = z.p.p; // case 1
+                }
+                else {
+                    if (z == z.p.r) {
+                        z = z.p; // case 2
+                        this.rotateLeft(z); // case 2
+                    }
+                    z.p.red = false; // case 3
+                    z.p.p.red = true; // case 3
+                    this.rotateRight(z.p.p); // case 3
+                }
+            }
+            else {
+                y = z.p.p.l;
+                if (y.red) {
+                    z.p.red = false; // case 1
+                    y.red = false; // case 1
+                    z.p.p.red = true; // case 1
+                    z = z.p.p; // case 1
+                }
+                else {
+                    if (z == z.p.l) {
+                        z = z.p; // case 2
+                        this.rotateRight(z); // case 2
+                    }
+                    z.p.red = false; // case 3
+                    z.p.p.red = true; // case 3
+                    this.rotateLeft(z.p.p); // case 3
+                }
+            }
+        }
+        this.root.red = false;
+    }
+
+    private void rotateLeft(Node x) {
         Node y = x.r;
 
         x.r = y.l;
@@ -54,7 +99,7 @@ class Tree {
         x.p = y;
     }
 
-    public void rotateRight(Node x) {
+    private void rotateRight(Node x) {
         Node y = x.l;
 
         x.l = y.r;
@@ -151,7 +196,7 @@ class Tree {
         System.out.println("digraph RBTree {");
         this.root.graph();
         System.out.println("\tnil [style = filled, fillcolor = black, fontcolor = white];");
-        System.out.println("\tnil -> " + this.root.k + ";");
+        //System.out.println("\tnil -> " + this.root.k + ";");
         System.out.println("}");
     }
 }
