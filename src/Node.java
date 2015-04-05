@@ -91,4 +91,21 @@ class Node {
         }
         if (this.r != Tree.nil) this.r.inorderWalk();
     }
+
+    public void graph() {
+        if (this.l != Tree.nil) {
+            System.out.println(this.k + " -> " + this.l.k + " [label = \" l\"];");
+            this.l.graph();
+        }
+        else {
+            System.out.println(this.k + " -> nil;");
+        }
+        if (this.r != Tree.nil) {
+            System.out.println(this.k + " -> " + this.r.k + " [label = \" r\"];");
+            this.r.graph();
+        }
+        else {
+            System.out.println(this.k + " -> nil;");
+        }
+    }
 }

@@ -50,6 +50,10 @@ class Main {
         System.out.println("t.root.predecessor: " + t.root.predecessor().k);
         System.out.println("t.root.successor: " + t.root.successor().k);
 
+        System.out.println();
+        t.graph();
+        System.out.println();
+
         while (true) {
             System.out.println();
             t.remove(t.root);

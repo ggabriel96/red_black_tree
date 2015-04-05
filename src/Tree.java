@@ -39,6 +39,42 @@ class Tree {
         }
     }
 
+    public void rotateLeft(Node x) {
+        Node y = x.r;
+
+        x.r = y.l;
+        if (y.l != Tree.nil) y.l.p = x;
+        y.p = x.p;
+
+        if (x.p == Tree.nil) this.root = y;
+        else if (x == x.p.l) x.p.l = y;
+        else x.p.r = y;
+
+        y.l = x;
+        x.p = y;
+    }
+
+    public void rotateRight(Node x) {
+        Node y = x.l;
+
+        x.l = y.r;
+        if (y.r != Tree.nil) y.r.p = x;
+        y.p = x.p;
+
+        if (x.p == Tree.nil) this.root = y;
+        else if (x == x.p.l) x.p.l = y;
+        else x.p.r = y;
+
+        y.r = x;
+        x.p = y;
+    }
+
+    public void graph() {
+        System.out.println("digraph RBTree {");
+        this.root.graph();
+        System.out.println("}");
+    }
+
     public void remove(Node u) {
         /* This first 'if' treats the case when u has
          * no children *or* has a right child, but not left.
