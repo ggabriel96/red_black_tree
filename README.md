@@ -32,4 +32,4 @@ An implementation of the red-black tree in Java. This code was forked from my re
 
 * And the `inorderWalk()` method prints all the nodes in ascending order. Now that print() is gone (its existence was kinda redundant), I made it a little more verbose;
 
-* Finally, the `graph()` method outputs the tree in the GraphViz dot language format. The nodes are colored accordingly and it prints `l` and `r` for the left and right child.
+* Finally, the `graph()` method outputs the tree in the [GraphViz](http://www.graphviz.org/) dot language format. The nodes are colored accordingly and it prints `l` and `r` for the left and right child.
