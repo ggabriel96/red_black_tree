@@ -159,13 +159,14 @@ class Tree {
         if (u.p == Tree.nil) this.root = v;
         else if (u == u.p.l) u.p.l = v;
         else u.p.r = v;
-        if (v != Tree.nil) v.p = u.p;
+        v.p = u.p;
     }
 
     // Remove all nodes in the tree.
-    public void delete() {
+    public Tree delete() {
         while (this.root != Tree.nil) this.remove(this.root);
         this.root = null;
+        return null;
     }
 
     public Node min() {

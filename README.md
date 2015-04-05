@@ -13,7 +13,7 @@ An implementation of the red-black tree in Java. This code was forked from my re
 
 * The `remove()` method uses `transplant()` (that performs a swap between nodes) to remove the node passed as argument from its tree. Treats all possible cases and if it has two children, it will be replaced by its successor;
 
-* The `delete()` method calls `remove()` to completely delete the tree (thus, also sets the root to null). You still gotta set your Tree object to null, as I can't do that from inside the method;
+* The `delete()` method calls `remove()` on the root node while it's not Tree.nil to completely delete the tree. Sets the root to null and also returns null so we don't need another line to set our Tree object to null;
 
 * The `min()` and `max()` methods return the node that holds the minimum and maximum values of the tree rooted at the object calling it;
 
