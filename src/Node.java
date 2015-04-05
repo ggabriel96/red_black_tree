@@ -17,8 +17,8 @@
 
 class Node {
     int k;
-    Node p, l, r;
     boolean red;
+    Node p, l, r;
 
     public Node(int k, boolean red) {
         this.k = k;
@@ -79,33 +79,31 @@ class Node {
 
     public void inorderWalk() {
         if (this.l != Tree.nil) this.l.inorderWalk();
-        { // actual printing
-            if (this.l != Tree.nil) System.out.print(this.l.k);
-            else System.out.print("Tree.nil");
-
-            if (this.p != Tree.nil) System.out.print("\t<- " + this.k + " -> \t");
-            else System.out.print("\t<< " + this.k + " >> \t");
-
-            if (this.r != Tree.nil) System.out.println(this.r.k);
-            else System.out.println("Tree.nil");
-        }
+        System.out.println(this.k);
         if (this.r != Tree.nil) this.r.inorderWalk();
     }
 
     public void graph() {
+        if (this.red) { // coloring
+            System.out.println("\t" + this.k + " [style = filled, fillcolor = red];");
+        } else {
+            System.out.println("\t" + this.k + " [style = filled, fillcolor = black, fontcolor = white];");
+        }
+
         if (this.l != Tree.nil) {
-            System.out.println(this.k + " -> " + this.l.k + " [label = \" l\"];");
+            System.out.println("\t" + this.k + " -> " + this.l.k + " [label = \" l\"];");
             this.l.graph();
         }
         else {
-            System.out.println(this.k + " -> nil;");
+            System.out.println("\t" + this.k + " -> nil [label = \" l\"];");
         }
+
         if (this.r != Tree.nil) {
-            System.out.println(this.k + " -> " + this.r.k + " [label = \" r\"];");
+            System.out.println("\t" + this.k + " -> " + this.r.k + " [label = \" r\"];");
             this.r.graph();
         }
         else {
-            System.out.println(this.k + " -> nil;");
+            System.out.println("\t" + this.k + " -> nil [label = \" r\"];");
         }
     }
 }

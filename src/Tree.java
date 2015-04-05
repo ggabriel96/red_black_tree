@@ -72,6 +72,8 @@ class Tree {
     public void graph() {
         System.out.println("digraph RBTree {");
         this.root.graph();
+        System.out.println("\tnil [style = filled, fillcolor = black, fontcolor = white];");
+        System.out.println("\tnil -> " + this.root.k + ";");
         System.out.println("}");
     }
 
@@ -121,6 +123,12 @@ class Tree {
         else if (u == u.p.l) u.p.l = v;
         else u.p.r = v;
         if (v != Tree.nil) v.p = u.p;
+    }
+
+    // Remove all nodes in the tree.
+    public void delete() {
+        while (this.root != Tree.nil) this.remove(this.root);
+        this.root = null;
     }
 
     public Node min() {

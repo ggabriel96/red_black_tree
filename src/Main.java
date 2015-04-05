@@ -31,41 +31,14 @@ class Main {
         System.out.println();
 
         System.out.println("t.size: " + t.size() + " node(s)");
-
         System.out.println("t.depth: " + t.depth());
-        System.out.println("t.root.r.depth: " + t.root.r.depth());
-        System.out.println("t.root.r.r.depth: " + t.root.r.r.depth());
-        System.out.println("t.root.l.r.depth: " + t.root.l.r.depth());
-
         System.out.println("t.height: " + t.height());
-        System.out.println("t.root.l.height: " + t.root.l.height());
-        System.out.println("t.root.r.height: " + t.root.r.height());
-        System.out.println("t.root.r.r.height: " + t.root.r.r.height());
-        System.out.println("t.root.r.r.r.height: " + t.root.r.r.r.height());
-
-        System.out.println("found " + t.find(0).k);
-
-        System.out.println("min: " + t.min().k);
-        System.out.println("max: " + t.max().k);
-        System.out.println("t.root.predecessor: " + t.root.predecessor().k);
-        System.out.println("t.root.successor: " + t.root.successor().k);
+        System.out.println("t.min: " + t.min().k);
+        System.out.println("t.max: " + t.max().k);
+        System.out.println("t.find(0): " + t.find(0).k);
 
         System.out.println();
         t.graph();
         System.out.println();
-
-        while (true) {
-            System.out.println();
-            t.remove(t.root);
-            if (t.root != Tree.nil) t.inorderWalk();
-            else break;
-        }
-
-        System.out.println(t.root);
-        System.out.println("A raiz agora é Tree.nil:");
-        System.out.println("t.root: " +  t.root + " == " + Tree.nil + ": Tree.nil");
-        System.out.println(t);
-
-        //System.out.println("_____________________________\n");
     }
 }
