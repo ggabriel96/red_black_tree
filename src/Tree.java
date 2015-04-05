@@ -69,14 +69,6 @@ class Tree {
         x.p = y;
     }
 
-    public void graph() {
-        System.out.println("digraph RBTree {");
-        this.root.graph();
-        System.out.println("\tnil [style = filled, fillcolor = black, fontcolor = white];");
-        System.out.println("\tnil -> " + this.root.k + ";");
-        System.out.println("}");
-    }
-
     public void remove(Node u) {
         /* This first 'if' treats the case when u has
          * no children *or* has a right child, but not left.
@@ -153,5 +145,13 @@ class Tree {
 
     public void inorderWalk() {
         this.root.inorderWalk();
+    }
+
+    public void graph() {
+        System.out.println("digraph RBTree {");
+        this.root.graph();
+        System.out.println("\tnil [style = filled, fillcolor = black, fontcolor = white];");
+        System.out.println("\tnil -> " + this.root.k + ";");
+        System.out.println("}");
     }
 }
