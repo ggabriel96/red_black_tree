@@ -9,7 +9,7 @@ An implementation of the red-black tree in Java. This code was forked from my re
 
 * The `add()` method uses `find()` to get to the place where the new node should be added. If a node already has the int passed as argument, it ignores it and doesn't add a thing (*so there are no duplicates*). If the new node is smaller than the current being looked at, it goes to the left; if it's greater, it goes to the right;
 
-* `rotateLeft()` and `rotateRight()` are to be used by `add()` when this becomes a full red-black tree. Both methods maintain the binary order property;
+* The `fix()` method takes care of the potential violations of the red-black properties. Calls `rotateLeft()` and `rotateRight()` when necessary;
 
 * The `remove()` method uses `transplant()` (that performs a swap between nodes) to remove the node passed as argument from its tree. Treats all possible cases and if it has two children, it will be replaced by its successor;
 
