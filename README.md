@@ -16,9 +16,9 @@ An implementation of the red-black tree in Java. This code was forked from my re
 
 * The `add()` method uses `find()` to get to the place where the new node should be added. If a node already has the int passed as argument, it ignores it and doesn't add a thing (*so there are no duplicates*). If the new node is smaller than the current being looked at, it goes to the left; if it's greater, it goes to the right. At the end, calls `addFix()` so that it takes care of the potential violations of the red-black properties (this then calls `rotateLeft()` and `rotateRight()` when necessary);
 
-* The `remove()` method uses `transplant()` (that performs a swap between nodes) and `remFix()` to remove the node passed as argument from its tree. `remFix()` is analogous to the `addFix()`;
+* The `remove()` method uses `transplant()` (that performs a swap between nodes) and `remFix()` to remove the node passed as argument from its tree. `remFix()` is analogous to `addFix()`;
 
-* The `delete()` method calls `remove()` on the root node while it's not Tree.nil to completely delete the tree. Sets the root to null and also returns null so we don't need another line to set our Tree object to null;
+* The `delete()` method calls `remove()` on the root node while it's not `Tree.nil` to completely delete the tree. Sets the root to `null` and also returns `null` so we don't need another line to set our Tree object to `null`;
 
 * The `min()` and `max()` methods return the node that holds the minimum and maximum values of the tree rooted at the object calling it;
 
