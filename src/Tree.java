@@ -32,16 +32,16 @@ class Tree {
         if (k < n.k) {
             n.l = new Node(k, true);
             n.l.p = n;
-            this.fix(n.l);
+            this.addFix(n.l);
         }
         else if (k > n.k) {
             n.r = new Node(k, true);
             n.r.p = n;
-            this.fix(n.r);
+            this.addFix(n.r);
         }
     }
 
-    private void fix(Node z) {
+    private void addFix(Node z) {
         Node y;
         while (z.p.red) {
             if (z.p == z.p.p.l) {
@@ -64,20 +64,21 @@ class Tree {
             }
             else {
                 y = z.p.p.l;
-                if (y.red) {
-                    z.p.red = false; // case 1
-                    y.red = false; // case 1
-                    z.p.p.red = true; // case 1
-                    z = z.p.p; // case 1
+                if (y.red) { // case 1
+                    z.p.red = false;
+                    y.red = false;
+                    z.p.p.red = true;
+                    z = z.p.p;
                 }
                 else {
-                    if (z == z.p.l) {
-                        z = z.p; // case 2
-                        this.rotateRight(z); // case 2
+                    if (z == z.p.l) { // case 2
+                        z = z.p;
+                        this.rotateRight(z);
                     }
-                    z.p.red = false; // case 3
-                    z.p.p.red = true; // case 3
-                    this.rotateLeft(z.p.p); // case 3
+                    // case 3
+                    z.p.red = false;
+                    z.p.p.red = true;
+                    this.rotateLeft(z.p.p);
                 }
             }
         }
@@ -114,40 +115,36 @@ class Tree {
         x.p = y;
     }
 
-    public void remove(Node u) {
-        /* This first 'if' treats the case when u has
-         * no children *or* has a right child, but not left.
-         */
-        if (u.l == Tree.nil) this.transplant(u, u.r);
-        else if (u.r == Tree.nil) this.transplant(u, u.l);
-        else {
-            Node v = u.successor();
-            /* If u has two children, gotta transplant it
-             * with its successor (v). If v is not a child
-             * of u, makes v.r be the new child of v.p.
-             * Then, v.r receives u's right sub-tree.
-             */
-            if (v.p != u) {
-                this.transplant(v, v.r);
-                v.r = u.r;
-                v.r.p = v;
-            }
-            /* Now, v has already taken u's place,
-             * except for the last step:
-             */
-            this.transplant(u, v);
-            v.l = u.l;
-            v.l.p = v;
-            /* transplant u and v so that we set the
-             * new parent of v (old u.p). Now, there
-             * is not a single reference to u and then
-             * it will be freed by the garbage collector
-             * (u.l and u.r are intact. That doesn't matter).
-             * If v is a child of u (the right one), then
-             * only the last step is performed.
-             * Important: v.l is Tree.nil, since v is u's successor.
-             */
+    public void remove(Node z) {
+        Node x, y = z;
+        boolean yOriginalRed = y.red;
+
+        if (z.l == Tree.nil) {
+            x = z.r;
+            this.transplant(z, z.r);
         }
+        else if (z.r == Tree.nil) {
+            x = z.l;
+            this.transplant(z, z.l);
+        }
+        else {
+            y = z.successor();
+            yOriginalRed = y.red;
+            x = y.r;
+
+            if (y.p == z) x.p = y;
+            else {
+                this.transplant(y, y.r);
+                y.r = z.r;
+                y.r.p = y;
+            }
+            this.transplant(z, y);
+            y.l = z.l;
+            y.l.p = y;
+            y.red = z.red;
+        }
+
+        if (!yOriginalRed) this.delFix(x);
     }
 
     /* Adjusts v's references to match u's:
@@ -162,9 +159,77 @@ class Tree {
         v.p = u.p;
     }
 
+    private void delFix(Node x) {
+        Node w;
+
+        while (x != this.root && !x.red) {
+            if (x == x.p.l) {
+                w = x.p.r;
+
+                if (w.red) { // case 1
+                    w.red = false;
+                    x.p.red = true;
+                    this.rotateLeft(x.p);
+                    w = x.p.r;
+                }
+                if (!w.l.red && !w.r.red) { // case 2
+                    w.red = true;
+                    x = x.p;
+                }
+                else {
+                    if (!w.r.red) { // case 3
+                        w.l.red = false;
+                        w.red = true;
+                        this.rotateRight(w);
+                        w = x.p.r;
+                    }
+                    // case 4
+                    w.red = x.p.red;
+                    x.p.red = false;
+                    w.r.red = false;
+                    this.rotateLeft(x.p);
+                    x = this.root;
+                }
+            }
+            else {
+                w = x.p.l;
+
+                if (w.red) { // case 1
+                    w.red = false;
+                    x.p.red = true;
+                    this.rotateRight(x.p);
+                    w = x.p.l;
+                }
+                if (!w.l.red && !w.r.red) { // case 2
+                    w.red = true;
+                    x = x.p;
+                }
+                else {
+                    if (!w.l.red) { // case 3
+                        w.r.red = false;
+                        w.red = true;
+                        this.rotateLeft(w);
+                        w = x.p.l;
+                    }
+                    // case 4
+                    w.red = x.p.red;
+                    x.p.red = false;
+                    w.l.red = false;
+                    this.rotateRight(x.p);
+                    x = this.root;
+                }
+            }
+        }
+        x.red = false;
+    }
+
     // Remove all nodes in the tree.
     public Tree delete() {
-        while (this.root != Tree.nil) this.remove(this.root);
+        while (this.root != Tree.nil) {
+            this.remove(this.root);
+            System.out.println();
+            this.graph();
+        }
         this.root = null;
         return null;
     }

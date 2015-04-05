@@ -48,6 +48,8 @@ class Main {
         t.add(14);
         t.add(15);
 
+        t.remove(t.find(14));
+
         t.graph();
 
         /*System.out.println("t.size: " + t.size() + " node(s)");
@@ -57,7 +59,6 @@ class Main {
         System.out.println("t.max: " + t.max().k);
         System.out.println("t.find(0): " + t.find(0).k);*/
 
-        t = t.delete();
-        System.out.println(t);
+        //System.out.println(t);
     }
 }
