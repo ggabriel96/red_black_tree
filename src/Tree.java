@@ -46,20 +46,22 @@ class Tree {
         while (z.p.red) {
             if (z.p == z.p.p.l) {
                 y = z.p.p.r;
+                // case 1: while repeats only if y.red
                 if (y.red) {
-                    z.p.red = false; // case 1
-                    y.red = false; // case 1
-                    z.p.p.red = true; // case 1
-                    z = z.p.p; // case 1
+                    z.p.red = false;
+                    y.red = false;
+                    z.p.p.red = true;
+                    z = z.p.p;
                 }
                 else {
-                    if (z == z.p.r) {
-                        z = z.p; // case 2
-                        this.rotateLeft(z); // case 2
+                    if (z == z.p.r) { // case 2
+                        z = z.p;
+                        this.rotateLeft(z);
                     }
-                    z.p.red = false; // case 3
-                    z.p.p.red = true; // case 3
-                    this.rotateRight(z.p.p); // case 3
+                    // case 3
+                    z.p.red = false;
+                    z.p.p.red = true;
+                    this.rotateRight(z.p.p);
                 }
             }
             else {
