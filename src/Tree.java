@@ -28,7 +28,7 @@ class Tree {
     }
 
     public void add(int k) {
-        Node n = this.root.find(k);
+        Node n = this.find(k);
         if (k < n.k) {
             n.l = new Node(k, true);
             n.l.p = n;
@@ -46,14 +46,18 @@ class Tree {
         while (z.p.red) {
             if (z.p == z.p.p.l) {
                 y = z.p.p.r;
-                // case 1: while repeats only if y.red
-                if (y.red) {
+                if (y.red) { // case 1: while repeats only if y.red
+                    /* if my uncle is red, I change the color
+                     * of my parent and uncle to black and
+                     * my grandparent's color to red
+                     * then, go up 2 levels on the tree
+                     */
                     z.p.red = false;
                     y.red = false;
                     z.p.p.red = true;
                     z = z.p.p;
                 }
-                else {
+                else { // uncle is black
                     if (z == z.p.r) { // case 2
                         z = z.p;
                         this.rotateLeft(z);

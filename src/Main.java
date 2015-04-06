@@ -17,41 +17,18 @@
 
 class Main {
     public static void main(String args[]) {
-        /*Tree t = new Tree(5);
+        Tree t = new Tree(0);
         t.add(1);
-        t.add(0);
         t.add(2);
         t.add(3);
-        t.add(5); // doesn't add duplicates
+        t.add(4);
+        t.add(5);
         t.add(6);
         t.add(7);
-        t.add(10);
-        t.add(4);
-        t.add(25);
-        t.add(23);
-        t.add(11);
-        t.add(15);
-        t.add(17);
         t.add(8);
-        t.add(9);*/
-        /*System.out.println("Original tree:");
-        t.inorderWalk();
-        System.out.println();*/
+        t.add(9);
 
-        Tree t = new Tree(7);
-        t.add(2);
-        t.add(1);
-        t.add(5);
-        t.add(4);
-        t.add(11); // doesn't add duplicates
-        t.add(8);
-        t.add(14);
-        t.add(15);
-
-        t.remove(t.find(14));
-
-        t.graph();
-
+        //t.graph();
         /*System.out.println("t.size: " + t.size() + " node(s)");
         System.out.println("t.depth: " + t.depth());
         System.out.println("t.height: " + t.height());
