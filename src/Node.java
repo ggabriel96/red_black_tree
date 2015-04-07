@@ -16,46 +16,46 @@
  */
 
 class Node {
-    int k;
-    boolean red;
-    Node p, l, r;
+    public int key;
+    public boolean red;
+    public Node p, left, right;
 
-    public Node(int k, boolean red) {
-        this.k = k;
+    public Node(int key, boolean red) {
+        this.key = key;
         this.red = red;
-        this.p = this.l = this.r = Tree.nil;
+        this.p = this.left = this.right = Tree.nil;
     }
 
-    public Node find(int k) {
-        if (k < this.k && this.l != Tree.nil) return this.l.find(k);
-        else if (k > this.k && this.r != Tree.nil) return this.r.find(k);
+    public Node find(int key) {
+        if (key < this.key && this.left != Tree.nil) return this.left.find(key);
+        else if (key > this.key && this.right != Tree.nil) return this.right.find(key);
         else return this;
     }
 
     public Node min() {
-        if (this.l != Tree.nil) return this.l.min();
+        if (this.left != Tree.nil) return this.left.min();
         else return this;
     }
 
     public Node max() {
-        if (this.r != Tree.nil) return this.r.max();
+        if (this.right != Tree.nil) return this.right.max();
         else return this;
     }
 
     public Node predecessor() {
-        if (this.l != Tree.nil) return this.l.max();
+        if (this.left != Tree.nil) return this.left.max();
         else return this;
     }
 
     public Node successor() {
-        if (this.r != Tree.nil) return this.r.min();
+        if (this.right != Tree.nil) return this.right.min();
         else return this;
     }
 
     public int size() {
         int size = 1;
-        if (this.r != Tree.nil) size += this.r.size();
-        if (this.l != Tree.nil) size += this.l.size();
+        if (this.right != Tree.nil) size += this.right.size();
+        if (this.left != Tree.nil) size += this.left.size();
         return size;
     }
 
@@ -65,45 +65,45 @@ class Node {
     }
 
     public int height() {
-        if (this.l != Tree.nil && this.r != Tree.nil) {
-            return 1 + Math.max(this.l.height(), this.r.height());
+        if (this.left != Tree.nil && this.right != Tree.nil) {
+            return 1 + Math.max(this.left.height(), this.right.height());
         }
-        else if (this.l != Tree.nil) {
-            return 1 + this.l.height();
+        else if (this.left != Tree.nil) {
+            return 1 + this.left.height();
         }
-        else if (this.r != Tree.nil) {
-            return 1 + this.r.height();
+        else if (this.right != Tree.nil) {
+            return 1 + this.right.height();
         }
         else return 0;
     }
 
     public void inorderWalk() {
-        if (this.l != Tree.nil) this.l.inorderWalk();
-        System.out.println(this.k);
-        if (this.r != Tree.nil) this.r.inorderWalk();
+        if (this.left != Tree.nil) this.left.inorderWalk();
+        System.out.println(this.key);
+        if (this.right != Tree.nil) this.right.inorderWalk();
     }
 
     public void graph() {
         if (this.red) { // coloring
-            System.out.println("\t" + this.k + " [style = filled, fillcolor = red];");
+            System.out.println("\t" + this.key + " [style = filled, fillcolor = red];");
         } else {
-            System.out.println("\t" + this.k + " [style = filled, fillcolor = black, fontcolor = white];");
+            System.out.println("\t" + this.key + " [style = filled, fillcolor = black, fontcolor = white];");
         }
 
-        if (this.l != Tree.nil) {
-            System.out.println("\t" + this.k + " -> " + this.l.k + " [label = \" L\"];");
-            this.l.graph();
+        if (this.left != Tree.nil) {
+            System.out.println("\t" + this.key + " -> " + this.left.key + " [label = \" left\"];");
+            this.left.graph();
         }
         else {
-            System.out.println("\t" + this.k + " -> nil [label = \" L\"];");
+            System.out.println("\t" + this.key + " -> nil [label = \" left\"];");
         }
 
-        if (this.r != Tree.nil) {
-            System.out.println("\t" + this.k + " -> " + this.r.k + " [label = \" R\"];");
-            this.r.graph();
+        if (this.right != Tree.nil) {
+            System.out.println("\t" + this.key + " -> " + this.right.key + " [label = \" right\"];");
+            this.right.graph();
         }
         else {
-            System.out.println("\t" + this.k + " -> nil [label = \" R\"];");
+            System.out.println("\t" + this.key + " -> nil [label = \" right\"];");
         }
     }
 }

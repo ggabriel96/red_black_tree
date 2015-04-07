@@ -28,13 +28,15 @@ class Main {
         t.add(8);
         t.add(9);
 
-        //t.graph();
+        t.graph();
         /*System.out.println("t.size: " + t.size() + " node(s)");
         System.out.println("t.depth: " + t.depth());
         System.out.println("t.height: " + t.height());
         System.out.println("t.min: " + t.min().k);
         System.out.println("t.max: " + t.max().k);
         System.out.println("t.find(0): " + t.find(0).k);*/
+
+        t = t.delete();
 
         //System.out.println(t);
     }

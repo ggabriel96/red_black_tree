@@ -16,36 +16,36 @@
  */
 
 class Tree {
-    Node root;
+    public Node root;
     public static Node nil = new Node(0, false);
 
-    public Tree(int k) {
-        this.root = new Node(k, false);
+    public Tree(int key) {
+        this.root = new Node(key, false);
     }
 
-    public Node find(int k) {
-        return this.root.find(k);
+    public Node find(int key) {
+        return this.root.find(key);
     }
 
-    public void add(int k) {
-        Node n = this.find(k);
-        if (k < n.k) {
-            n.l = new Node(k, true);
-            n.l.p = n;
-            this.addFix(n.l);
+    public void add(int key) {
+        Node n = this.find(key);
+        if (key < n.key) {
+            n.left = new Node(key, true);
+            n.left.p = n;
+            this.addFix(n.left);
         }
-        else if (k > n.k) {
-            n.r = new Node(k, true);
-            n.r.p = n;
-            this.addFix(n.r);
+        else if (key > n.key) {
+            n.right = new Node(key, true);
+            n.right.p = n;
+            this.addFix(n.right);
         }
     }
 
     private void addFix(Node z) {
         Node y;
         while (z.p.red) {
-            if (z.p == z.p.p.l) {
-                y = z.p.p.r;
+            if (z.p == z.p.p.left) {
+                y = z.p.p.right;
                 if (y.red) { // case 1: while repeats only if y.red
                     /* if my uncle is red, I change the color
                      * of my parent and uncle to black and
@@ -58,7 +58,7 @@ class Tree {
                     z = z.p.p;
                 }
                 else { // uncle is black
-                    if (z == z.p.r) { // case 2
+                    if (z == z.p.right) { // case 2
                         z = z.p;
                         this.rotateLeft(z);
                     }
@@ -69,15 +69,14 @@ class Tree {
                 }
             }
             else {
-                y = z.p.p.l;
+                y = z.p.p.left;
                 if (y.red) { // case 1
-                    z.p.red = false;
-                    y.red = false;
+                    y.red = z.p.red = false;
                     z.p.p.red = true;
                     z = z.p.p;
                 }
                 else {
-                    if (z == z.p.l) { // case 2
+                    if (z == z.p.left) { // case 2
                         z = z.p;
                         this.rotateRight(z);
                     }
@@ -92,61 +91,62 @@ class Tree {
     }
 
     private void rotateLeft(Node x) {
-        Node y = x.r;
+        Node y = x.right;
 
-        x.r = y.l;
-        if (y.l != Tree.nil) y.l.p = x;
+        x.right = y.left;
+        if (y.left != Tree.nil) y.left.p = x;
         y.p = x.p;
 
         if (x.p == Tree.nil) this.root = y;
-        else if (x == x.p.l) x.p.l = y;
-        else x.p.r = y;
+        else if (x == x.p.left) x.p.left = y;
+        else x.p.right = y;
 
-        y.l = x;
+        y.left = x;
         x.p = y;
     }
 
     private void rotateRight(Node x) {
-        Node y = x.l;
+        Node y = x.left;
 
-        x.l = y.r;
-        if (y.r != Tree.nil) y.r.p = x;
+        x.left = y.right;
+        if (y.right != Tree.nil) y.right.p = x;
         y.p = x.p;
 
         if (x.p == Tree.nil) this.root = y;
-        else if (x == x.p.l) x.p.l = y;
-        else x.p.r = y;
+        else if (x == x.p.left) x.p.left = y;
+        else x.p.right = y;
 
-        y.r = x;
+        y.right = x;
         x.p = y;
     }
 
-    public void remove(Node z) {
+    public void remove(int key) {
+        Node z = this.find(key);
         Node x, y = z;
         boolean yOriginalRed = y.red;
 
-        if (z.l == Tree.nil) {
-            x = z.r;
-            this.transplant(z, z.r);
+        if (z.left == Tree.nil) {
+            x = z.right;
+            this.transplant(z, z.right);
         }
-        else if (z.r == Tree.nil) {
-            x = z.l;
-            this.transplant(z, z.l);
+        else if (z.right == Tree.nil) {
+            x = z.left;
+            this.transplant(z, z.left);
         }
         else {
             y = z.successor();
             yOriginalRed = y.red;
-            x = y.r;
+            x = y.right;
 
             if (y.p == z) x.p = y;
             else {
-                this.transplant(y, y.r);
-                y.r = z.r;
-                y.r.p = y;
+                this.transplant(y, y.right);
+                y.right = z.right;
+                y.right.p = y;
             }
             this.transplant(z, y);
-            y.l = z.l;
-            y.l.p = y;
+            y.left = z.left;
+            y.left.p = y;
             y.red = z.red;
         }
 
@@ -155,13 +155,13 @@ class Tree {
 
     /* Adjusts v's references to match u's:
      * u.p.x = v and v.p = u.p (if v is not Tree.nil).
-     * Doesn't touch u.p, u.l and u.r. u is
+     * Doesn't touch u.p, u.left and u.right. u is
      * still there as though nothing happened.
      */
     private void transplant(Node u, Node v) {
         if (u.p == Tree.nil) this.root = v;
-        else if (u == u.p.l) u.p.l = v;
-        else u.p.r = v;
+        else if (u == u.p.left) u.p.left = v;
+        else u.p.right = v;
         v.p = u.p;
     }
 
@@ -169,58 +169,58 @@ class Tree {
         Node w;
 
         while (x != this.root && !x.red) {
-            if (x == x.p.l) {
-                w = x.p.r;
+            if (x == x.p.left) {
+                w = x.p.right;
 
                 if (w.red) { // case 1
                     w.red = false;
                     x.p.red = true;
                     this.rotateLeft(x.p);
-                    w = x.p.r;
+                    w = x.p.right;
                 }
-                if (!w.l.red && !w.r.red) { // case 2
+                if (!w.left.red && !w.right.red) { // case 2
                     w.red = true;
                     x = x.p;
                 }
                 else {
-                    if (!w.r.red) { // case 3
-                        w.l.red = false;
+                    if (!w.right.red) { // case 3
+                        w.left.red = false;
                         w.red = true;
                         this.rotateRight(w);
-                        w = x.p.r;
+                        w = x.p.right;
                     }
                     // case 4
                     w.red = x.p.red;
                     x.p.red = false;
-                    w.r.red = false;
+                    w.right.red = false;
                     this.rotateLeft(x.p);
                     x = this.root;
                 }
             }
             else {
-                w = x.p.l;
+                w = x.p.left;
 
                 if (w.red) { // case 1
                     w.red = false;
                     x.p.red = true;
                     this.rotateRight(x.p);
-                    w = x.p.l;
+                    w = x.p.left;
                 }
-                if (!w.l.red && !w.r.red) { // case 2
+                if (!w.left.red && !w.right.red) { // case 2
                     w.red = true;
                     x = x.p;
                 }
                 else {
-                    if (!w.l.red) { // case 3
-                        w.r.red = false;
+                    if (!w.left.red) { // case 3
+                        w.right.red = false;
                         w.red = true;
                         this.rotateLeft(w);
-                        w = x.p.l;
+                        w = x.p.left;
                     }
                     // case 4
                     w.red = x.p.red;
                     x.p.red = false;
-                    w.l.red = false;
+                    w.left.red = false;
                     this.rotateRight(x.p);
                     x = this.root;
                 }
@@ -232,9 +232,7 @@ class Tree {
     // Remove all nodes in the tree.
     public Tree delete() {
         while (this.root != Tree.nil) {
-            this.remove(this.root);
-            System.out.println();
-            this.graph();
+            this.remove(this.root.key);
         }
         this.root = null;
         return null;
@@ -268,7 +266,7 @@ class Tree {
         System.out.println("digraph RBTree {");
         this.root.graph();
         System.out.println("\tnil [style = filled, fillcolor = black, fontcolor = white];");
-        //System.out.println("\tnil -> " + this.root.k + ";");
+        //System.out.println("\tnil -> " + this.root.key + ";");
         System.out.println("}");
     }
 }
