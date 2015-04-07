@@ -1,18 +1,18 @@
 /*
- * This file is part of binary_search_tree.
+ * This file is part of red_black_tree.
  *
- *  binary_search_tree is free software: you can redistribute it and/or modify
+ *  red_black_tree is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU Affero General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
  *  (at your option) any later version.
  *
- *  binary_search_tree is distributed in the hope that it will be useful,
+ *  red_black_tree is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  *  GNU Affero General Public License for more details.
  *
  *  You should have received a copy of the GNU Affero General Public License
- *  along with binary_search_tree. If not, see <http://www.gnu.org/licenses/>.
+ *  along with red_black_tree. If not, see <http://www.gnu.org/licenses/>.
  */
 
 class Tree {
