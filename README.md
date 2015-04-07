@@ -22,7 +22,7 @@ An implementation of the red-black tree in Java. This code was forked from my re
 
 * The `min()` and `max()` methods return the node that holds the minimum and maximum values of the tree rooted at the object calling it;
 
-* The `predecessor()` and `sucessor()` methods return the predecessor (`max()` of its left child) and successor (`min()` of the right child) of the object calling it. If the respective child doesn't exist, returns itself;
+* The `predecessor()` and `successor()` methods return the predecessor (`max()` of its left child) and successor (`min()` of the right child) of the object calling it. If the respective child doesn't exist, returns itself;
 
 * The `size()` method returns the quantity of nodes in the (sub-)tree rooted at the object calling it;
 
