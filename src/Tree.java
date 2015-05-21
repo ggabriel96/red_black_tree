@@ -15,34 +15,34 @@
  *  along with red_black_tree. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class Tree {
-    public Node root;
-    public static Node nil = new Node(0, false);
+class RBTree {
+    public RBNode root;
+    public static RBNode nil = new RBNode(0, false);
 
-    public Tree(int key) {
-        this.root = new Node(key, false);
+    public RBTree(int key) {
+        this.root = new RBNode(key, false);
     }
 
-    public Node find(int key) {
+    public RBNode find(int key) {
         return this.root.find(key);
     }
 
     public void add(int key) {
-        Node n = this.find(key);
+        RBNode n = this.find(key);
         if (key < n.key) {
-            n.left = new Node(key, true);
+            n.left = new RBNode(key, true);
             n.left.p = n;
             this.addFix(n.left);
         }
         else if (key > n.key) {
-            n.right = new Node(key, true);
+            n.right = new RBNode(key, true);
             n.right.p = n;
             this.addFix(n.right);
         }
     }
 
-    private void addFix(Node z) {
-        Node y;
+    private void addFix(RBNode z) {
+        RBNode y;
         while (z.p.red) {
             if (z.p == z.p.p.left) {
                 y = z.p.p.right;
@@ -90,14 +90,14 @@ class Tree {
         this.root.red = false;
     }
 
-    private void rotateLeft(Node x) {
-        Node y = x.right;
+    private void rotateLeft(RBNode x) {
+        RBNode y = x.right;
 
         x.right = y.left;
-        if (y.left != Tree.nil) y.left.p = x;
+        if (y.left != RBTree.nil) y.left.p = x;
         y.p = x.p;
 
-        if (x.p == Tree.nil) this.root = y;
+        if (x.p == RBTree.nil) this.root = y;
         else if (x == x.p.left) x.p.left = y;
         else x.p.right = y;
 
@@ -105,14 +105,14 @@ class Tree {
         x.p = y;
     }
 
-    private void rotateRight(Node x) {
-        Node y = x.left;
+    private void rotateRight(RBNode x) {
+        RBNode y = x.left;
 
         x.left = y.right;
-        if (y.right != Tree.nil) y.right.p = x;
+        if (y.right != RBTree.nil) y.right.p = x;
         y.p = x.p;
 
-        if (x.p == Tree.nil) this.root = y;
+        if (x.p == RBTree.nil) this.root = y;
         else if (x == x.p.left) x.p.left = y;
         else x.p.right = y;
 
@@ -121,15 +121,15 @@ class Tree {
     }
 
     public void remove(int key) {
-        Node z = this.find(key);
-        Node x, y = z;
+        RBNode z = this.find(key);
+        RBNode x, y = z;
         boolean yOriginalRed = y.red;
 
-        if (z.left == Tree.nil) {
+        if (z.left == RBTree.nil) {
             x = z.right;
             this.transplant(z, z.right);
         }
-        else if (z.right == Tree.nil) {
+        else if (z.right == RBTree.nil) {
             x = z.left;
             this.transplant(z, z.left);
         }
@@ -154,19 +154,19 @@ class Tree {
     }
 
     /* Adjusts v's references to match u's:
-     * u.p.x = v and v.p = u.p (if v is not Tree.nil).
+     * u.p.x = v and v.p = u.p (if v is not RBTree.nil).
      * Doesn't touch u.p, u.left and u.right. u is
      * still there as though nothing happened.
      */
-    private void transplant(Node u, Node v) {
-        if (u.p == Tree.nil) this.root = v;
+    private void transplant(RBNode u, RBNode v) {
+        if (u.p == RBTree.nil) this.root = v;
         else if (u == u.p.left) u.p.left = v;
         else u.p.right = v;
         v.p = u.p;
     }
 
-    private void remFix(Node x) {
-        Node w;
+    private void remFix(RBNode x) {
+        RBNode w;
 
         while (x != this.root && !x.red) {
             if (x == x.p.left) {
@@ -230,19 +230,19 @@ class Tree {
     }
 
     // Remove all nodes in the tree.
-    public Tree delete() {
-        while (this.root != Tree.nil) {
+    public RBTree delete() {
+        while (this.root != RBTree.nil) {
             this.remove(this.root.key);
         }
         this.root = null;
         return null;
     }
 
-    public Node min() {
+    public RBNode min() {
         return this.root.min();
     }
 
-    public Node max() {
+    public RBNode max() {
         return this.root.max();
     }
 

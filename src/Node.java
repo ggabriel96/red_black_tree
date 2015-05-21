@@ -15,72 +15,72 @@
  *  along with red_black_tree. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class Node {
+class RBNode {
     public int key;
     public boolean red;
-    public Node p, left, right;
+    public RBNode p, left, right;
 
-    public Node(int key, boolean red) {
+    public RBNode(int key, boolean red) {
         this.key = key;
         this.red = red;
-        this.p = this.left = this.right = Tree.nil;
+        this.p = this.left = this.right = RBTree.nil;
     }
 
-    public Node find(int key) {
-        if (key < this.key && this.left != Tree.nil) return this.left.find(key);
-        else if (key > this.key && this.right != Tree.nil) return this.right.find(key);
+    public RBNode find(int key) {
+        if (key < this.key && this.left != RBTree.nil) return this.left.find(key);
+        else if (key > this.key && this.right != RBTree.nil) return this.right.find(key);
         else return this;
     }
 
-    public Node min() {
-        if (this.left != Tree.nil) return this.left.min();
+    public RBNode min() {
+        if (this.left != RBTree.nil) return this.left.min();
         else return this;
     }
 
-    public Node max() {
-        if (this.right != Tree.nil) return this.right.max();
+    public RBNode max() {
+        if (this.right != RBTree.nil) return this.right.max();
         else return this;
     }
 
-    public Node predecessor() {
-        if (this.left != Tree.nil) return this.left.max();
+    public RBNode predecessor() {
+        if (this.left != RBTree.nil) return this.left.max();
         else return this;
     }
 
-    public Node successor() {
-        if (this.right != Tree.nil) return this.right.min();
+    public RBNode successor() {
+        if (this.right != RBTree.nil) return this.right.min();
         else return this;
     }
 
     public int size() {
         int size = 1;
-        if (this.right != Tree.nil) size += this.right.size();
-        if (this.left != Tree.nil) size += this.left.size();
+        if (this.right != RBTree.nil) size += this.right.size();
+        if (this.left != RBTree.nil) size += this.left.size();
         return size;
     }
 
     public int depth() {
-        if (this.p != Tree.nil) return 1 + this.p.depth();
+        if (this.p != RBTree.nil) return 1 + this.p.depth();
         else return 0;
     }
 
     public int height() {
-        if (this.left != Tree.nil && this.right != Tree.nil) {
+        if (this.left != RBTree.nil && this.right != RBTree.nil) {
             return 1 + Math.max(this.left.height(), this.right.height());
         }
-        else if (this.left != Tree.nil) {
+        else if (this.left != RBTree.nil) {
             return 1 + this.left.height();
         }
-        else if (this.right != Tree.nil) {
+        else if (this.right != RBTree.nil) {
             return 1 + this.right.height();
         }
         else return 0;
     }
 
     public void inorderWalk() {
-        if (this.left != Tree.nil) this.left.inorderWalk();
+        if (this.left != RBTree.nil) this.left.inorderWalk();
         System.out.println(this.key);
-        if (this.right != Tree.nil) this.right.inorderWalk();
+        if (this.right != RBTree.nil) this.right.inorderWalk();
     }
 
     public void graph() {
@@ -90,7 +90,7 @@ class Node {
             System.out.println("\t" + this.key + " [style = filled, fillcolor = black, fontcolor = white];");
         }
 
-        if (this.left != Tree.nil) {
+        if (this.left != RBTree.nil) {
             System.out.println("\t" + this.key + " -> " + this.left.key + " [label = \" left\"];");
             this.left.graph();
         }
@@ -98,7 +98,7 @@ class Node {
             System.out.println("\t" + this.key + " -> nil [label = \" left\"];");
         }
 
-        if (this.right != Tree.nil) {
+        if (this.right != RBTree.nil) {
             System.out.println("\t" + this.key + " -> " + this.right.key + " [label = \" right\"];");
             this.right.graph();
         }

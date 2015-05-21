@@ -17,7 +17,7 @@
 
 class Main {
     public static void main(String args[]) {
-        Tree t = new Tree(0);
+        RBTree t = new RBTree(0);
         t.add(1);
         t.add(2);
         t.add(3);
