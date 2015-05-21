@@ -16,7 +16,7 @@
  */
 
 class RBNode {
-    public int key;
+    public Integer key;
     public boolean red;
     public RBNode p, left, right;
 
@@ -81,6 +81,10 @@ class RBNode {
         if (this.left != RBTree.nil) this.left.inorderWalk();
         System.out.println(this.key);
         if (this.right != RBTree.nil) this.right.inorderWalk();
+    }
+
+    public String toString() {
+        return this.key.toString();
     }
 
     public void graph() {
