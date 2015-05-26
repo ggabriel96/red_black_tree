@@ -32,6 +32,23 @@ class RBNode {
         else return this;
     }
 
+    public void find50(Counter qtty, int from, RBTree result) {
+        if (qtty.getValue() >= 50) return;
+
+        if (this.left != RBTree.nil) {
+            this.left.find50(qtty, from, result);
+        }
+
+        if (this.key > from && qtty.getValue() < 50) {
+            result.add(this.key);
+            qtty.increment();
+        }
+
+        if (this.right != RBTree.nil) {
+            this.right.find50(qtty, from, result);
+        }
+    }
+
     public RBNode min() {
         if (this.left != RBTree.nil) return this.left.min();
         else return this;

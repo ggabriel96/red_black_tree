@@ -19,6 +19,10 @@ class RBTree {
     public RBNode root;
     public static RBNode nil = new RBNode(0, false);
 
+    public RBTree() {
+        this.root = RBTree.nil;
+    }
+
     public RBTree(int key) {
         this.root = new RBNode(key, false);
     }
@@ -27,17 +31,31 @@ class RBTree {
         return this.root.find(key);
     }
 
+    public RBTree find50(int from) {
+        Counter c = new Counter(0);
+        RBTree fifty = new RBTree();
+
+        this.root.find50(c, from, fifty);
+
+        return fifty;
+    }
+
     public void add(int key) {
-        RBNode n = this.find(key);
-        if (key < n.key) {
-            n.left = new RBNode(key, true);
-            n.left.p = n;
-            this.addFix(n.left);
+        if (this.root == RBTree.nil) {
+            this.root = new RBNode(key, false);
         }
-        else if (key > n.key) {
-            n.right = new RBNode(key, true);
-            n.right.p = n;
-            this.addFix(n.right);
+        else {
+            RBNode n = this.find(key);
+            if (key < n.key) {
+                n.left = new RBNode(key, true);
+                n.left.p = n;
+                this.addFix(n.left);
+            }
+            else if (key > n.key) {
+                n.right = new RBNode(key, true);
+                n.right.p = n;
+                this.addFix(n.right);
+            }
         }
     }
 

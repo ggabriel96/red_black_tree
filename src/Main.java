@@ -17,16 +17,13 @@
 
 class Main {
     public static void main(String args[]) {
-        RBTree t = new RBTree(0);
-        t.add(1);
-        t.add(2);
-        t.add(3);
-        t.add(4);
-        t.add(5);
-        t.add(6);
-        t.add(7);
-        t.add(8);
-        t.add(9);
+        RBTree t = new RBTree();
+
+        for (int i = 1; i <= 500; i += 5) {
+            t.add(i);
+        }
+
+        // t.find50(50).inorderWalk();
 
         t.graph();
 
