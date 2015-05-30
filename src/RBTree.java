@@ -140,35 +140,37 @@ class RBTree {
 
     public void remove(int key) {
         RBNode z = this.find(key);
-        RBNode x, y = z;
-        boolean yOriginalRed = y.red;
+        if (z.key == key) {
+            RBNode x, y = z;
+            boolean yOriginalRed = y.red;
 
-        if (z.left == RBTree.nil) {
-            x = z.right;
-            this.transplant(z, z.right);
-        }
-        else if (z.right == RBTree.nil) {
-            x = z.left;
-            this.transplant(z, z.left);
-        }
-        else {
-            y = z.successor();
-            yOriginalRed = y.red;
-            x = y.right;
-
-            if (y.p == z) x.p = y;
-            else {
-                this.transplant(y, y.right);
-                y.right = z.right;
-                y.right.p = y;
+            if (z.left == RBTree.nil) {
+                x = z.right;
+                this.transplant(z, z.right);
             }
-            this.transplant(z, y);
-            y.left = z.left;
-            y.left.p = y;
-            y.red = z.red;
-        }
+            else if (z.right == RBTree.nil) {
+                x = z.left;
+                this.transplant(z, z.left);
+            }
+            else {
+                y = z.successor();
+                yOriginalRed = y.red;
+                x = y.right;
 
-        if (!yOriginalRed) this.remFix(x);
+                if (y.p == z) x.p = y;
+                else {
+                    this.transplant(y, y.right);
+                    y.right = z.right;
+                    y.right.p = y;
+                }
+                this.transplant(z, y);
+                y.left = z.left;
+                y.left.p = y;
+                y.red = z.red;
+            }
+
+            if (!yOriginalRed) this.remFix(x);
+        }
     }
 
     /* Adjusts v's references to match u's:
