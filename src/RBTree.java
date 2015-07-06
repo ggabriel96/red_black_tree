@@ -142,6 +142,9 @@ class RBTree {
         RBNode z = this.find(key);
         if (z.key == key) {
             RBNode x, y = z;
+            // we gotta backup y's original color, because if
+            // it was black, we might have violated a property
+            // of the red-black tree by moving it around
             boolean yOriginalRed = y.red;
 
             if (z.left == RBTree.nil) {
@@ -153,8 +156,9 @@ class RBTree {
                 this.transplant(z, z.left);
             }
             else {
+                // we'll replace z by its successor
                 y = z.successor();
-                yOriginalRed = y.red;
+                yOriginalRed = y.red; // same here about y's color
                 x = y.right;
 
                 if (y.p == z) x.p = y;
@@ -189,27 +193,37 @@ class RBTree {
         RBNode w;
 
         while (x != this.root && !x.red) {
+            // if x is the left child of its parent, do this.
+            // the else procedure is simetrically the same
             if (x == x.p.left) {
                 w = x.p.right;
 
-                if (w.red) { // case 1
+                // case 1: x's sibling is red. Switch colors and
+                // rotate to change this case to be either case 2,
+                // 3 or 4 (w is black)
+                if (w.red) {
                     w.red = false;
                     x.p.red = true;
                     this.rotateLeft(x.p);
                     w = x.p.right;
                 }
-                if (!w.left.red && !w.right.red) { // case 2
+
+                // case 2: w and both of its children are black
+                if (!w.left.red && !w.right.red) {
                     w.red = true;
                     x = x.p;
                 }
                 else {
-                    if (!w.right.red) { // case 3
+                    // case 3: w's left child is red (or right
+                    // child is black). Switch colors and rotate
+                    // to become case 4
+                    if (!w.right.red) {
                         w.left.red = false;
                         w.red = true;
                         this.rotateRight(w);
                         w = x.p.right;
                     }
-                    // case 4
+                    // case 4: w's right child is red
                     w.red = x.p.red;
                     x.p.red = false;
                     w.right.red = false;
@@ -220,18 +234,21 @@ class RBTree {
             else {
                 w = x.p.left;
 
-                if (w.red) { // case 1
+                // case 1
+                if (w.red) {
                     w.red = false;
                     x.p.red = true;
                     this.rotateRight(x.p);
                     w = x.p.left;
                 }
-                if (!w.left.red && !w.right.red) { // case 2
+                // case 2
+                if (!w.left.red && !w.right.red) {
                     w.red = true;
                     x = x.p;
                 }
                 else {
-                    if (!w.left.red) { // case 3
+                    // case 3
+                    if (!w.left.red) {
                         w.right.red = false;
                         w.red = true;
                         this.rotateLeft(w);
